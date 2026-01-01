@@ -34,12 +34,15 @@ public class driverFactory {
 	public WebDriver initDriver(Properties prop) {
 
 		String browserName = prop.getProperty("browser");
+		
+		if(System.getProperty("browserName") != null) {
+			browserName = System.getProperty("browserName");
+		}
 
 		optionsManger = new OptionsManager(prop);
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			
 			
 			// driver = new ChromeDriver(optionsManger.getChromeOptions());
 			tlDriver.set(new ChromeDriver(optionsManger.getChromeOptions()));
@@ -133,6 +136,9 @@ public class driverFactory {
 
 		return prop;
 	}
+	
+	
+	
 	
 	public static Object[][] getTestData(String sheetName) throws IOException {
 		
